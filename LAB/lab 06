@@ -1,0 +1,19 @@
+# Vacuum Cleaner Problem
+
+rooms = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
+
+while 'Dirty' in rooms.values():
+    print("Vacuum is in room", location)
+
+    if rooms[location] == 'Dirty':
+        print("Cleaning room", location)
+        rooms[location] = 'Clean'
+
+    elif location == 'A':
+        location = 'B'
+
+    else:
+        location = 'A'
+
+print("Both rooms are clean!")

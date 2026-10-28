@@ -1,0 +1,43 @@
+# Map Coloring using CSP
+
+colors = ["Red", "Green", "Blue"]
+
+# Map regions and their neighboring regions
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+coloring = {}
+
+def is_valid(region, color):
+    for neighbor in graph[region]:
+        if neighbor in coloring and coloring[neighbor] == color:
+            return False
+    return True
+
+def solve():
+    if len(coloring) == len(graph):
+        return True
+
+    region = next(r for r in graph if r not in coloring)
+
+    for color in colors:
+        if is_valid(region, color):
+            coloring[region] = color
+
+            if solve():
+                return True
+
+            del coloring[region]
+
+    return False
+
+if solve():
+    print("Map Coloring Solution:")
+    for region, color in coloring.items():
+        print(region, ":", color)
+else:
+    print("No solution exists")
